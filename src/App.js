@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
 import './App.css';
-import {BrowserRouter as Router, Switch, Route, IndexRoute} from 'react-router-dom';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import AlbumTable from './components/AlbumTable'
 import ArtistTable from './components/ArtistTable'
 import TrackTable from './components/TrackTable'
 import UserForm from './components/form'
+import TrackDataPage from './components/TrackDataPage'
 
-import {Container, Row, Col, Form} from 'react-bootstrap';
-import ArtistPage from './components/ArtistPage';
+import {Container} from 'react-bootstrap';
+// import ArtistPage from './components/ArtistPage';
 import NavigationBar from './components/NavigationBar'
 
 export default class App extends Component {
@@ -18,25 +19,28 @@ export default class App extends Component {
     // <div classname="App">
     //     <AlbumTable/>
     // </div>
-    <Router>
+    <div className='bg-dark'>
+    
+    <Router >
         <NavigationBar/>
+        {/* <Container>asdajklfh</Container> */}
         <Container>
-            <Row>
-                <Col lg={12} className={"margin-top"}>
+            {/* <Row> */}
+                {/* <Col lg={12} className={"margin-top"}> */}
                     <Switch>
-                        {/* <Route path="/" exact component ={User}/> */}
-                            {/* <IndexRoute to="/products"/>
-                        </Route> */}
-                        <Route path="/artist/:id" exact component={ArtistPage}/>
+                        
+                        {/* <Route path="/artist/:id" exact component={ArtistPage}/> */}
                         <Route path="/artists" exact component={ArtistTable}/>
-                        <Route path="/tracks" exact component={TrackTable}/>                                               */}
+                        <Route path="/tracks" exact component={TrackTable}/>                                               
                         <Route path="/albums" exact component={AlbumTable} />
+                        <Route path="/spotdata/:id" exact component={TrackDataPage}/>
                         <Route path="" exact component={UserForm} />
                       </Switch>
-                </Col>
-            </Row>
+                {/* </Col> */}
+            {/* </Row> */}
         </Container>
       </Router>
+    </div>
   );
 }
 }

@@ -6,21 +6,25 @@ class UserService{
 
     
 
-    getAlbums(){
-        return axios.get(API_URL+'albums');
+    getAlbums(username){
+        return axios.get(API_URL+'userdata/albums/'+username);
     }
 
-    getArtists(){
-        return axios.get(API_URL+'artists');
+    getArtists(username){
+        return axios.get(API_URL+'userdata/artists/'+username);
     }
 
-    getArtistById(id){
-        return axios.get(API_URL+'artists/${id}');
+    // getArtistById(id){
+    //     return axios.get(API_URL+`artists/${id}`);
         
+    // }
+
+    getTracks(username){
+        return axios.get(API_URL+'userdata/tracks/'+username)
     }
 
-    getTracks(){
-        return axios.get(API_URL+'tracks')
+    getSpotData(id){
+        return axios.get(API_URL+'spotdata/'+id)
     }
 }
 

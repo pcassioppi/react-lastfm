@@ -1,11 +1,10 @@
 import React, { Component } from "react";
-import UserService from "../services/Service";
 import { Link } from "react-router-dom";
+import {Card, Table, Button, Container, Jumbotron} from 'react-bootstrap';
 
-import axios from 'axios'
-import {Card, Table, Button, ButtonGroup} from 'react-bootstrap';
+import UserService from "../services/Service";
 
-const API_URL = 'http://localhost:8082/api/';
+const user = localStorage.getItem('username')
 
 export default class ArtistTable extends Component{   
     constructor(props){
@@ -16,7 +15,7 @@ export default class ArtistTable extends Component{
     }
 
     componentDidMount(){
-        UserService.getArtists().then((response)=>{
+        UserService.getArtists(user).then((response)=>{
             this.setState({
                 artists:response.data
             });
@@ -27,21 +26,37 @@ export default class ArtistTable extends Component{
 
 
     render(){
-        const {artists, artist_id, name, plays, lfm_link } = this.state;
+        const {artists} = this.state;
 
         return(
+            <Container>
             
-            
-            <Card border="danger" className ={"border border-dark bg-dark text-white"}>
-                <Card.Header className="text-center">Artist List</Card.Header>
+            <Jumbotron className="text-center">
+                <h1>Last.FM artist stats for {user}</h1>
+                <br></br>
+                <div> To see your album or track stats, click on the links at the top of the page.</div>
+                <br></br>
+                <div> To return to the home page and find the info of another user, click the button below.</div>
+                <br></br>
+                <p>
+                    <Link to={""}>
+                        <Button variant='primary'>Home</Button>
+                    </Link>
+                </p>
+                
+            </Jumbotron>
+
+            <Card border="danger" className ={"border border-dark bg-secondary text-white"}>
+                {/* <Card.Header className="text-center">Artist List {user}</Card.Header> */}
                 <Card.Body>
-                    <Table striped  bordered hover variant="secondary">
+                    <Table striped  bordered hover variant="secondary" borderless='True'>
                         <thead>
                         <tr>
-                            <td>Artist Id</td>
-                            <td>Artist Name</td>
-                            <td>Artist Plays</td>
-                            <td> Last Fm Link</td>
+                            <td></td>
+                            <th>Rank</th>
+                            <th>Artist Name</th>
+                            <th>Artist Plays</th>
+                            <th>Last Fm Link</th>
                             
                         </tr>
                         </thead>
@@ -53,11 +68,12 @@ export default class ArtistTable extends Component{
                             </tr> :
                             artists.map((artist) => (
                             <tr key={artist.artist_id}>
-                                
-                                <td>{artist.artist_id+1}</td>
-                                <td>{artist.name} <a href={'artist/'+ artist.artist_id}>Your Stats</a></td>
-                                <td>{artist.plays}</td>
-                                <td><a href={"https://www.last.fm"+artist.lfm_link}>link</a></td>
+                                <td><img src={"https://lastfm.freetls.fastly.net/i/u/avat"+artist.image} alt='track img' width="100" height="100"/></td>
+                                <td className="align-middle">{parseInt(artist.artist_id.split(':')[1])+1}</td>
+                                {/* <td>{artist.name} <a href={'artist/'+ artist.artist_id}>Your Stats</a></td> */}
+                                <td className="align-middle">{artist.name}</td>
+                                <td className="align-middle">{artist.plays}</td>
+                                <td className="align-middle"><a href={"https://www.last.fm"+artist.lfm_link}>Link</a></td>
                                 
                                 
                             </tr>
@@ -68,6 +84,7 @@ export default class ArtistTable extends Component{
                      </Table> 
                 </Card.Body>
             </Card>        
+            </Container>
         );
     };
 

@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import UserService from "../services/Service";
-import { Link } from "react-router-dom";
+// import UserService from "../services/Service";
+// import { Link } from "react-router-dom";
 
 import axios from 'axios'
-import {Card, Table, Button, ButtonGroup} from 'react-bootstrap';
+import {Card, Table} from 'react-bootstrap';
 
 const API_URL = 'http://localhost:8082/api/';
 
